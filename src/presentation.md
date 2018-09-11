@@ -341,8 +341,7 @@ For our chat application there are 2 things we need to store:
 
 Bellow is a diagram that should help illustrate some of the things each piece of state
 
-<img src="media/model_class_diagrams.png" alt="drawing"/>
-
+<img src="media/model_class_diagram.png" alt="drawing"/>
 
 
 ## Where and how to store this information
