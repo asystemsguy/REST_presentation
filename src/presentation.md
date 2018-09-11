@@ -1,4 +1,7 @@
-# Tutorial for creating RESTful backend
+# 
+## **Tutorial for creating RESTful backend**
+
+<img src="media/backend.jpg" alt="drawing" />
 
 ---
 
@@ -371,6 +374,8 @@ if we want to send a message id to this URL
 
 # What should it remember? - How to store the state?
 
+## Where and how to store this information
+
 For our chat application there are 2 things we need to store:
 
     1. Messages
@@ -379,11 +384,6 @@ For our chat application there are 2 things we need to store:
 Bellow is a diagram that should help illustrate some of the things each piece of state
 
 <img src="media/model_class_diagram.png" alt="drawing"/>
-
-
-## Where and how to store this information
-
-
 
 ---
 # Agenda
