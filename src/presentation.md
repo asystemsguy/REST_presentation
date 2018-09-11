@@ -245,6 +245,42 @@ Introduction to create a simple REST backend.
 
 # Lets build a simple application - Chat app
 
+The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
+its, its a way better and older version of SLACK!
+
+The idea is simple, a basic IRC server with no authentication and a single room.
+Multiple clients can talk to the IRC server, each client can post a message as as retrieve all
+messages that are posted. Messages are sorted on the server based on the time they are received.
+
+In real IRC, there is the concept of rooms ( equivalent of channels in slack ), however for this
+sample program we will only have one default room/channel.
+
+
+## Frameworks:
+There are many frameworks we can use to create convenience:
+    * Django
+    * Flask
+    * Ruby On Rails
+    * ASP.net
+    * etc...
+
+For the most part most of these frameworks only differ in syntax, language, and design methodology
+( how they expect you to do stuff ). The underlying principles and concepts always carry over!
+
+
+## Django
+In this course we will be using Djang. Thus this tutorial will be both a general backend and a
+mini-django tutorial.
+
+If you are going to use Django in your project, I recommend looking at the official Django tutorial
+[Django Official Tutorial]
+
+// TODO Reason
+
+[Django Official Tutorial]
+
+
+
 
 
 ---
