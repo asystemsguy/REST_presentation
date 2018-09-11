@@ -262,7 +262,7 @@ Introduction to create a simple REST backend.
 
 # Lets build a simple application - Chat app
 
-Requirements of our Chat app
+Requirements for our chat app
 
 - client can ***send messages*** with message_id to server
 - client can ***see all messages*** and message_ids
