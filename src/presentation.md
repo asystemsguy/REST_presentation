@@ -8,7 +8,7 @@ Introduction to create a simple REST backend.
 
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
-- What is REST and why to use it?
+- **What is REST and why to use it?**
 - How an REST app works?
 - Lets build a simple application - Chat app
 - Two main parts of our app - State and Functionality
@@ -90,7 +90,7 @@ for accessing server resources
 ---
 # Agenda
 
-Introduction to create a simple REST backend.
+Introduction to create a simple REST back-end.
 
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
@@ -102,12 +102,126 @@ Introduction to create a simple REST backend.
 - What should it do? - How to implement functionality?
 - Final application
 - How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- What are alternate tools to build back-ends?
+
+---
+
+# How an REST app works? - HTTP protocol
+
+- REST is usually implemented over HTTP protocol
+- Having said that REST itself is independent of any particular network protocol
 
 ---
 
 # How an REST app works?
 
+- URLs to represent objects
+- HTTP Verbs
+- Data format of HTTP response
+- Response codes
+- Cache control
+
+---
+
+# How an REST app works?
+
+## URLs to represent resources
+
+sample URL to access a backend resource
+
+```http://example.com/resource```
+To pass some value to backend
+
+```http://example.com/resource?parameter=value```
+To pass more than one value to backend
+
+```http://example.com/update_widget?parameter1=value1&parameter2=value2```
+
+
+---
+
+# How an REST app works?
+
+## HTTP Verbs
+
+- GET - to read the resource
+- PUT - modify the resource
+- POST - create the resource
+- DELETE - delete the resource
+
+---
+
+# How an REST app works?
+
+## Example of usage of HTTP verbs
+
+- If we wanted to view all the resources in the server, the URL would look like this:
+
+	``` GET http://example.com/resources ```
+- Create a new resource by posting the data:
+
+	``` POST http://example.com/resources?newresourceid = value ```
+- To view a single resource we "get" it by specifying that resource's id:
+
+	```GET http://example.com/resources/resourceid```
+
+---
+# How an REST app works?
+
+## Example of usage of HTTP verbs
+
+
+- Update newly created resource by "putting" the new data:
+
+	```PUT http://example.com/resources/resourceid?parameter = new value```
+- Delete that resource:
+
+	```DELETE http://example.com/resources/resourceid```
+
+---
+
+# How an REST app works?
+
+## Data format of HTTP response - JSON
+
+Sample JSON object of response object
+
+	!json 
+	
+	{
+	    "name":"John",
+	    "age":30,
+	    "cars": {
+	        "car1":"Ford",
+	    }
+	 }
+
+---
+
+# How an REST app works?
+
+## Response codes
+
+Here's a list of the most important status codes:
+
+* 2xx = Success
+	- 200 - OK (the default)
+	- 201 - Created
+	- 202 - Accepted (often used for delete requests)
+* 3xx = Redirect
+---
+
+# How an REST app works?
+
+## Response codes
+
+* 4xx = User error
+	- 400 - Bad Request (generic user error/bad data)
+	- 401 - Unauthorized (this area requires you to log in)
+	- 404 - Not Found (bad URL)
+	- 405 - Method Not Allowed (wrong HTTP method)
+	- 409 - Conflict (i.e. trying to create the same resource with a PUT request)
+* 5xx = Server error
 
 ---
 
