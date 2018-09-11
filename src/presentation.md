@@ -258,6 +258,7 @@ sample program we will only have one default room/channel.
 
 ## Frameworks:
 There are many frameworks we can use to create convenience:
+
     * Django
     * Flask
     * Ruby On Rails
@@ -277,11 +278,7 @@ If you are going to use Django in your project, I recommend looking at the offic
 
 // TODO Reason
 
-[Django Official Tutorial]
-
-
-
-
+[Django Official Tutorial]: https://docs.djangoproject.com/en/2.1/intro/
 
 ---
 
@@ -305,6 +302,17 @@ Introduction to create a simple REST backend.
 
 # Two main parts of our app - State and Functionality
 
+Many design patterns e.g. MVC ( which Django psudo uses ) seperate state and functionality.
+
+Here, state referes to the data stored by the site/backend. In our example this may include things
+like the message.
+
+On the other hand when we talk about functionality, we refer to the actions taken when a client hits
+an endpoint.
+
+
+// TODO include reason as to why this seperation is good
+
 ---
 # Agenda
 
@@ -321,6 +329,25 @@ Introduction to create a simple REST backend.
 - Final application
 - How to run it? - locally and on cloud?
 - What are alternate tools to build backends?
+
+---
+
+# What should it remember? - How to store the state?
+
+For our chat application there are 2 things we need to store:
+
+    1. Messages
+    2. Profile/User data
+
+Bellow is a diagram that should help illustrate some of the things each piece of state
+
+<img src="media/model_class_diagrams.png" alt="drawing"/>
+
+
+
+## Where and how to store this information
+
+
 
 ---
 # Agenda
