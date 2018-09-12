@@ -335,17 +335,58 @@ Introduction to create a simple REST backend.
 # What should it remember? - How to store the state?
 
 For our chat application there are 2 things we need to store:
+1. Messages
+⋅⋅* Text
+..* Owner
+..* publish date
+2. Profile/User data
+..* Name
+..* Email
+..* Post count
 
-    1. Messages
-    2. Profile/User data
+Bellow is a diagram that should help visualize the data:
 
-Bellow is a diagram that should help illustrate some of the things each piece of state
-
-<img src="media/model_class_diagram.png" alt="drawing"/>
-
+<center><img src="media/model_class_diagram.png" alt="drawing"/></center>
 
 ## Where and how to store this information
+When it comes to storage you have several options:
+1. SQL Database
+2. No-SQL Database
+3. Local file based approach
+4. etc...
 
+Generally speaking, a lot of backend frameworks support multiple database backends.
+You might descredit the use of a file based approach ( "in house db" ) and for a lot of data it
+certainly has flaws but think of GIT for a second, it technically has a file based database.
+
+In this tutorial we will be using a built in SQLite databse. However, for your own professional
+development, I highly encourage you set up a dedicated database. A lot of jobs will ask for
+familiarity with one of them!
+
+Once you have chosen your SQL database of choice you will need to configure the bindings to your
+backend.
+
+## Django: Using the database
+
+Using [the django DB binding guide] go ahead and set up the databse..
+
+[the django DB binding guide]: https://docs.djangoproject.com/en/2.1/topics/install/#database-installation
+
+## Models
+
+Lets begin by the defining the model // TODO FINISH
+
+
+```
+class Profile( models.Model ):
+    name = models.CharField( max_length=25 )
+    post_count = models.IntegerField( default=0 )
+
+class Message( models.Model ):
+    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
+    message_text = models.CharField( max_length=10000 )
+    pub_date = models.DateTimeField( 'date published' )
+```
 
 
 ---
