@@ -2,7 +2,7 @@
 * @Author: harsha
 * @Date:   2018-09-09 18:23:15
 * @Last Modified by:   Harshavardhan.Kadiyala
-* @Last Modified time: 2018-09-10 17:01:26
+* @Last Modified time: 2018-09-11 11:11:47
 */
 ul li{
  font-size: x-large;
@@ -16,13 +16,15 @@ p{
   font-size: x-large;
 }
 
-footer {
+.page_num_header {
     float: right;
-    /*height: 35px;*/
-    margin: 0px 50px 0px 0px;
-   /* background: #9FF;*/
+    margin: 0px 0px 0px 0px;
     font-size: large;
     text-align: right;
-    /*padding: 10px 30px;
-    /*width: 180px;*/
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+pre {
+    font-size: x-large;
 }

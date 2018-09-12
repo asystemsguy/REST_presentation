@@ -1,4 +1,7 @@
-# Tutorial for creating RESTful Backends
+# 
+## **Tutorial for creating RESTful backend**
+
+<img src="media/backend.jpg" alt="drawing" />
 
 ---
 
@@ -15,8 +18,8 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- How to run it? 
+- What are alternate tools to build backend?
 
 ---
 
@@ -101,7 +104,7 @@ Introduction to create a simple REST back-end.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
+- How to run it? 
 - What are alternate tools to build back-ends?
 
 ---
@@ -130,13 +133,14 @@ Introduction to create a simple REST back-end.
 sample URL to access a backend resource
 
 ```http://example.com/resource```
+
 To pass some value to backend
 
 ```http://example.com/resource?parameter=value```
+
 To pass more than one value to backend
 
 ```http://example.com/update_widget?parameter1=value1&parameter2=value2```
-
 
 ---
 
@@ -156,14 +160,16 @@ To pass more than one value to backend
 ## Example of usage of HTTP verbs
 
 - If we wanted to view all the resources in the server, the URL would look like this:
-
+	
 	``` GET http://example.com/resources ```
+
 - Create a new resource by posting the data:
+  	
+  	``` POST http://example.com/resources?new_resourceid = value ```
 
-	``` POST http://example.com/resources?newresourceid = value ```
 - To view a single resource we "get" it by specifying that resource's id:
-
-	```GET http://example.com/resources/resourceid```
+  	
+  	```GET http://example.com/resources/resourceid```
 
 ---
 # How an REST app works?
@@ -174,6 +180,7 @@ To pass more than one value to backend
 - Update newly created resource by "putting" the new data:
 
 	```PUT http://example.com/resources/resourceid?parameter = new value```
+
 - Delete that resource:
 
 	```DELETE http://example.com/resources/resourceid```
@@ -187,12 +194,12 @@ To pass more than one value to backend
 Sample JSON object of response object
 
 	!json 
-	
+
 	{
-	    "name":"John",
-	    "age":30,
-	    "cars": {
-	        "car1":"Ford",
+	    "parameter":"value",
+	    "parameter":number,
+	    "nested parameter": {
+	        "parameter":"value",
 	    }
 	 }
 
@@ -225,6 +232,19 @@ Here's a list of the most important status codes:
 
 ---
 
+# How an REST app works?
+
+## Cache control
+
+In HTTP header, an REST server can specify weather to store the response in the cache and for how long
+
+```
+Cache-Control: no-cache
+Cache-Control: max-age=<seconds>
+```
+
+---
+
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -238,14 +258,23 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- How to run it? 
+- What are alternate tools to build backend?
 
 ---
 
 # Lets build a simple application - Chat app
 
-The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
+Requirements for our chat app
+
+- client can ***send messages*** with message_id to server
+- client can ***see all messages*** and message_ids
+- client can ***modify an existing message*** using its message_id
+- client can ***delete a message*** using its message_id
+
+<!--
+=======
+ The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
 its, its a way better and older version of SLACK!
 
 The idea is simple, a basic IRC server with no authentication and a single room.
@@ -254,32 +283,7 @@ messages that are posted. Messages are sorted on the server based on the time th
 
 In real IRC, there is the concept of rooms ( equivalent of channels in slack ), however for this
 sample program we will only have one default room/channel.
-
-
-## Frameworks:
-There are many frameworks we can use to create convenience:
-
-    * Django
-    * Flask
-    * Ruby On Rails
-    * ASP.net
-    * etc...
-
-For the most part most of these frameworks only differ in syntax, language, and design methodology
-( how they expect you to do stuff ). The underlying principles and concepts always carry over!
-
-
-## Django
-In this course we will be using Djang. Thus this tutorial will be both a general backend and a
-mini-django tutorial.
-
-If you are going to use Django in your project, I recommend looking at the official Django tutorial
-[Django Official Tutorial]
-
-// TODO Reason
-
-[Django Official Tutorial]: https://docs.djangoproject.com/en/2.1/intro/
-
+ -->
 ---
 
 # Agenda
@@ -295,13 +299,24 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- How to run it? 
+- What are alternate tools to build backend?
 
 ---
 
 # Two main parts of our app - State and Functionality
 
+### State - what we are going to store ?
+
+```Message { message_id, message text, sender client_id }```
+
+### Functionality - what it has to do ?
+
+- Create a new message with a message_id
+- Edit an existing message, given its message_id
+- See all messages
+- Delete an existing message given its message_id
+<!-- =======
 Many design patterns e.g. MVC ( which Django psudo uses ) seperate state and functionality.
 
 Here, state referes to the data stored by the site/backend. In our example this may include things
@@ -311,7 +326,7 @@ On the other hand when we talk about functionality, we refer to the actions take
 an endpoint.
 
 
-// TODO include reason as to why this seperation is good
+// TODO include reason as to why this seperation is good -->
 
 ---
 # Agenda
@@ -327,12 +342,39 @@ Introduction to create a simple REST backend.
 - **What should it remember? - How to store the state?**
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- How to run it? 
+- What are alternate tools to build backend?
+---
+# What should it remember? - State
+
+Lets define an JSON object for our message
+
+	!json 
+
+	{
+	    "id":"message id",
+	    "message":"text",
+	    "client": {
+	        "id":"client id",
+	    }
+	 }
+
+---
+# What should it remember? - State
+
+Lets give an URL for our message 
+
+```http://www.messageapp.ca/message```
+
+if we want to send a message id to this URL
+
+```http://www.messageapp.ca/message?message_id = "value"```
 
 ---
 
 # What should it remember? - How to store the state?
+
+## Where and how to store this information
 
 For our chat application there are 2 things we need to store:
 1. Messages
@@ -388,7 +430,6 @@ class Message( models.Model ):
     pub_date = models.DateTimeField( 'date published' )
 ```
 
-
 ---
 # Agenda
 
@@ -403,8 +444,30 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - **What should it do? - How to implement functionality?**
 - Final application
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- How to run it? 
+- What are alternate tools to build backend?
+
+---
+# What should it do? - How to implement functionality?
+
+- **create a new message with message_id**
+
+```POST http://www.messageapp.ca/message?message_id = "value"&message="text"&client_id="id"```
+
+- **edit an existing message with message_id**
+
+```PUT http://www.messageapp.ca/message?message_id = "value"&message="text```
+
+---
+# What should it do? - How to implement functionality?
+
+- **see all messages**
+
+```GET http://www.messageapp.ca/message```
+
+- **delete an existing message with message_id**
+
+```DELETE http://www.messageapp.ca/message?message_id = "value"```
 
 ---
 # Agenda
@@ -419,9 +482,48 @@ Introduction to create a simple REST backend.
 - Two main parts of our app - State and Functionality
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
-- **Final application**
-- How to run it? - locally and on cloud?
-- What are alternate tools to build backends?
+- **Lets implement them in python**
+- How to run it? 
+- What are alternate tools to build backend?
+
+---
+# Lets implement them in python
+
+<!-- The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
+its, its a way better and older version of SLACK!
+
+The idea is simple, a basic IRC server with no authentication and a single room.
+Multiple clients can talk to the IRC server, each client can post a message as as retrieve all
+messages that are posted. Messages are sorted on the server based on the time they are received.
+
+In real IRC, there is the concept of rooms ( equivalent of channels in slack ), however for this
+sample program we will only have one default room/channel. -->
+
+
+<!-- ## Frameworks:
+There are many frameworks we can use to create convenience:
+    * Django
+    * Flask
+    * Ruby On Rails
+    * ASP.net
+    * etc...
+
+For the most part most of these frameworks only differ in syntax, language, and design methodology
+( how they expect you to do stuff ). The underlying principles and concepts always carry over!
+ -->
+
+There are many python frameworks (like Django,Flask ...) etc that can help in building REST backends
+
+In this course we will be using Django. Thus this tutorial will be both a general backend and a
+mini-django tutorial.
+
+If you are going to use Django in your project, I recommend looking at the official Django tutorial
+[Django Official Tutorial]
+
+// TODO Reason
+
+[Django Official Tutorial] -->
+
 
 ---
 # Agenda
@@ -437,8 +539,13 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- **How to run it? - locally and on cloud?**
-- What are alternate tools to build backends?
+- **How to run it? **
+- What are alternate tools to build backend?
+
+---
+# How to run it? - locally
+
+
 
 ---
 # Agenda
@@ -454,5 +561,7 @@ Introduction to create a simple REST backend.
 - What should it remember? - How to store the state?
 - What should it do? - How to implement functionality?
 - Final application
-- How to run it? - locally and on cloud?
-- **What are alternate tools to build backends?**
+- How to run it? 
+- **What are alternate tools to build backend?**
+---
+# What are alternate tools to build backend?
