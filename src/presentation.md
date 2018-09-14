@@ -272,63 +272,6 @@ Requirements for our chat app
 - client can ***modify an existing message*** using its message_id
 - client can ***delete a message*** using its message_id
 
-<!--
-=======
- The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
-its, its a way better and older version of SLACK!
-
-The idea is simple, a basic IRC server with no authentication and a single room.
-Multiple clients can talk to the IRC server, each client can post a message as as retrieve all
-messages that are posted. Messages are sorted on the server based on the time they are received.
-
-In real IRC, there is the concept of rooms ( equivalent of channels in slack ), however for this
-sample program we will only have one default room/channel.
- -->
----
-
-# Agenda
-
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- **Two main parts of our app - State and Functionality**
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- What are alternate tools to build backend?
-
----
-
-# Two main parts of our app - State and Functionality
-
-### State - what we are going to store ?
-
-```Message { message_id, message text, sender client_id }```
-
-### Functionality - what it has to do ?
-
-- Create a new message with a message_id
-- Edit an existing message, given its message_id
-- See all messages
-- Delete an existing message given its message_id
-<!-- =======
-
-Many design patterns e.g. MVC ( which Django psudo uses ) seperate state and functionality.
-
-Here, state referes to the data stored by the site/backend. In our example this may include things
-like the message.
-
-On the other hand when we talk about functionality, we refer to the actions taken when a client hits
-an endpoint.
-
-
-// TODO include reason as to why this seperation is good -->
-
 ---
 # Agenda
 
@@ -351,13 +294,13 @@ Introduction to create a simple REST backend.
 For our chat application there are 2 things we need to store:
 
 1. Messages
-⋅⋅* Text ( Max 500 chars )
-..* Owner ( Must exist )
-..* publish date ( Must follow YYYY-MM-DD HH:MM )
+  * Text ( Max 500 chars )
+  * Owner ( Must exist )
+  * publish date ( Must follow YYYY-MM-DD HH:MM )
 2. Profile/User data
-..* Name ( Max 50 chars )
-..* Email ( Must follow regex `[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ )
-..* Post count ( Integer
+  * Name ( Max 50 chars )
+  * Email ( Must follow regex `[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ )
+  * Post count ( Integer
 
 There is much more we can add to these, but for now lets start off with this nice simple base
 
@@ -436,7 +379,7 @@ This will create the following directory structure:
 <center><img src="media/dir_structure.png" alt="drawing"/></center>
 
 # Configuring the django project:
-##Database
+## Database
 To hook up our postgresql database, we need to change the settings in `<project>/tut/settings.py`
 
     !Python
@@ -458,7 +401,7 @@ For other databases consult the [the django DB binding guide]
 ---
 
 # Configuring the django project:
-##Urls
+## Urls
 
 As can be seen from the diagram we need to modify the <project>/tut/urls.py to point all
 <server address>/irc to the irc app's urls.py. This is accomplished using:
@@ -473,7 +416,7 @@ As can be seen from the diagram we need to modify the <project>/tut/urls.py to p
 We will configure the specific endpoints later
 
 # Configuring the django project:
-##Misc
+## Misc
 Our sample app will not use HTTPs so we need to disable CSRF cookies
 
 Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from `<project>/tut/settings.py`.
