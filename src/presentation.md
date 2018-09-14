@@ -14,6 +14,7 @@ Introduction to create a simple REST backend.
 - **Backend basics**
 - Design a simple backend - chat app
 - Implement the chat app in python
+- Best practices
 ---
 
 # Backend basics
@@ -29,29 +30,7 @@ Introduction to create a simple REST backend.
 - This server can be located any where in the world and your client connects using a network.
 
 ---
-# Backend basics
 
-## How client and server communicate
-
-<center><img src="media/ip_port.png" alt="drawing"/></center>
-
-- Server can be uniquely identified using IP:PORT combination
-- Ex: for an HTTPS server the combination can be 192.168.1.255:8080
-- IP address is a unique number given to a computer
-- PORT is used to identify a particular program running inside that computer
-- DNS name is an English name for IP address and can be used in the place of IP to connect to server.
-
----
-# Backend basics
-
-## How client and server communicate
-
-- A network protocol is set of rules two computers use to talk between each other.
-- HTTP is most common protocol used by all systems in web.
-- HTTP clients (ex: browser) can make requests to HTTP backends and can get responses back.
-- In this tutorial, we will be creating a HTTP backend.
-
----
 # Backend basics
 
 ## What is cloud and what is a VM
@@ -64,7 +43,7 @@ Introduction to create a simple REST backend.
 ---
 # Backend basics
 
-## Getting my application on the **CLOUD**
+## Getting my application on the cloud
 
 So you need to get someone to led you a VM that is publicly accessible, luckily there are many
 providers out there that offer just that!
@@ -72,12 +51,11 @@ providers out there that offer just that!
 - Azure
 - AWS
 - Digital Ocean
-- ...
 
 Since the professor has manged to secure the class Azure credits, we will be using Azure.
 
 **Important:** If you want to work on backend I guarantee that one of those 3 names will be on
-               the job requierments
+               the job requirements
 
 ---
 # Backend basics
@@ -87,25 +65,8 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 - Create a virtual machine
 - Login to virtual machine from local desktop.
 - Transferring and running a program in virtual machine
-
 ---
 
-# Backend basics
-
-# Backend frameworks
-There are many convienient to use frameworks that we can use to simplify our programs:
-    * Django
-    * Flask
-    * Ruby On Rails
-    * ASP.net
-    * etc...
-
-For the most part most of these frameworks only differ in syntax, language, and design methodology
-( how they expect you to do stuff ). The underlying principles and concepts always carry over!
-
-This tutorial will use Django.
-
----
 # Backend basics
 
 ## SQL Database
@@ -122,13 +83,39 @@ This tutorial will use Django.
 
 ## PostgreSQL - Demo
 
-- Install PSQL on Azure server
+- Install PostgreSQL on Azure VM
 - Create a user for the DB
 - Create tables
 
 You can also check out the [Digital Ocean PSQL guide]
-[Digital Ocean PSQL guide]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+[Digital Ocean PSQL guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+
 ---
+
+# Backend basics
+
+## How client and server communicate - Network
+
+<center><img src="media/ip_port.png" alt="drawing"/></center>
+
+- Server can be uniquely identified using IP:PORT combination
+- Ex: for an HTTPS server the combination can be 192.168.1.255:8080
+- IP address is a unique number given to a computer
+- PORT is used to identify a particular program running inside that computer
+- DNS name is an English name for IP address and can be used in the place of IP to connect to server.
+
+---
+# Backend basics
+
+## How client and server communicate - HTTP
+
+- A network protocol is set of rules two computers use to talk between each other.
+- HTTP is most common protocol used by all systems in web.
+- HTTP clients (ex: browser) can make requests to HTTP backends and can get responses back.
+- In this tutorial, we will be creating a HTTP backend.
+
+---
+
 # Backend basics
 
 ## What is an REST API
@@ -289,9 +276,12 @@ Introduction to create a simple REST backend.
 - Backend basics
 - **Design a simple backend - chat app**
 - Implement the simple backend in python
-
+- Best practices
 ---
-# Lets build a simple application - Chat app
+
+# Design a simple backend - chat app
+
+## Chat app
 
 Requirements for our chat app
 
@@ -301,82 +291,98 @@ Requirements for our chat app
 - client can ***delete a message*** using its message_id
 
 ---
-# What should it remember? - State
+
+# Design a simple backend - chat app
+
+## Classes in our chat app
 
 For our chat application there are 2 things we need to store:
 
-1. Messages
-  * Text ( Max 500 chars )
-  * Owner ( Must exist )
-  * publish date ( Must follow YYYY-MM-DD HH:MM )
-2. Profile/User data
-  * Name ( Max 50 chars )
-  * Email ( Must follow regex `[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ )
-  * Post count ( Integer
+<center><img src="media/model_class_diagram.png" alt="drawing"/></center>
 
 There is much more we can add to these, but for now lets start off with this nice simple base
 
-Bellow is a diagram that should help visualize the data:
+---
 
-<center><img src="media/model_class_diagram.png" alt="drawing"/></center>
+# Design a simple backend - chat app
+
+## Functionality
+
+Here are the functions our server will perform:
+
+**Profiles**
+
+	1. Create profiles
+	2. Update profile data
+		* Here we only allow the email and name to change
+	3. View a single profile given an id
+
+**Messages**
+
+	1. Create messages
+	2. View a single message given an id
+	3. View all messages given an id
 
 ---
 
-# Functionality
+# Defining URLs for Endpoints
 
-Here are the tasks we are going to allow our server to perform:
+Lets assign URL for each class
 
-1. Create profiles
-2. Update profile data
-  * Here we only allow the email and name to change
-3. Create messages
-4. View a single profile given an id
-5. View a single message given an id
-6. View all messages given an id
+* ```http://address/irc/profiles/```
+* ```http://address/irc/messages/```
 
----
+HTTP Verbs are used to represent functions (APIs), Let's assign them to our 5 functions 
 
-# Endpionts/URLs
-
-This is important, think of these as function calls!
-
-* address/irc/profiles/<id>?/
-* address/irc/chat/<id>?/
-
-We have 5 functions, how can we represent them in 2 URLs?
-
-# Verbs
-* address/irc/profiles/\<id\>?/
-  * POST: Create a message
-  * GET: View a message or all message is id not specified
-* address/irc/chat/\<id\>?/
-  * POST: Ceate a profile
-  * GET: Retrieve a profile
-  * PUT: Update a profile
+* ```http://address/irc/profiles/\<id\>?/```
+	* POST: Create a profile
+	* GET : Retrieve a profile
+	* PUT : Update a profile
+* ```http://address/irc/messages/\<id\>?/```
+	* POST: Create a message
+	* GET : View a message or all message if id not specified
 
 ---
 
-# Protocol
+# Design a simple backend - chat app
 
-What will the HTTP requests contain? JSON ( Its easy to use and ubiquitous )
+## Protocol 
+
+How to pass data to APIs and get return values back? 
+***JSON*** ( Its easy to use and ubiquitous )
+
 Here are some basic protocol rules:
 
-1. Create profiles
+- Create profiles
     * Requires model data as a JSON object
     * Returns a JSON object containing 'profile_id'
-2. Update profile data
+- Update profile data
     * Here we only allow the email and name to change
     * Requires model data as a JSON object
     * Returns a JSON object containing 'profile_id'
-3. Create messages
+
+
+---
+
+# Design a simple backend - chat app
+
+## Protocol
+
+- View a single profile given an id
+    * Returns a JSON object containing profile model fields
+- Create messages
     * Requires model data as a JSON object
     * Returns a JSON object containing 'message_id'
-4. View a single profile given an id
-    * Returns a JSON object containing profile model fields
-5. View a single message given an id
+- View a single message given an id
     * Returns a JSON object containing message model fields
-6. View all messages
+- View all messages
     * Returns an array of JSON object containing message fields
+
+---
+
+# Design a simple backend - chat app
+
+## Errors
 
 Any error will result is JSON object containing the following to be returned:
 
@@ -390,8 +396,8 @@ Any error will result is JSON object containing the following to be returned:
 	    }
 	}
 
-
 ---
+
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -401,96 +407,131 @@ Introduction to create a simple REST backend.
 - Backend basics
 - Design a simple backend - chat app
 - **Implement the chat app in python**
+- Best practices
 
 ---
-# Creating a django project
+
+# Implement the chat app in python
+
+## Backend frameworks
+
+There are many convenient to use frameworks that we can use to simplify our programs:
+
+    * Django
+    * Flask
+    * Ruby On Rails
+    * ASP.net
+    * etc...
+
+For the most part most of these frameworks only differ in syntax, language, and design methodology
+( how they expect you to do stuff ). The underlying principles and concepts always carry over!
+
+This tutorial will use ***Django***.
+
+---
+
+# Implement the chat app in python
+
+## Creating a Django project
 
 If you are going to use Django in your project, I recommend looking at the official Django tutorial
-[Django Official Tutorial]
 
-[Django Official Tutorial]: https://docs.djangoproject.com/en/2.1/intro
-
+[Django Official Tutorial](https://docs.djangoproject.com/en/2.1/intro)
 
 1. Create a folder: `mkdir -p ~/cpen321/backend`
 2. Create a Django project: `django-admin startproject <project name>`
-3. `cd` into the project dirrectory `cd ~/cpen321/backend`
+3. `cd` into the project directory `cd ~/cpen321/backend`
 4. Create an app withing Django: `./manage.py startapp irc`
 
-This will create the following directory structure:
+---
+
+# Implement the chat app in python
+
+## Creating a Django project
+
+After following the steps, you should see the following directory structure:
 
 <center><img src="media/dir_structure.png" alt="drawing"/></center>
 
-# Configuring the django project:
-## Database
-To hook up our postgresql database, we need to change the settings in `<project>/tut/settings.py`
+---
 
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cmedb',
-        'HOST': '127.0.0.1',
-        'USER': 'cmedbuser',
-        'PASSWORD': 'cmedbuserpassword'
-    }
-}
-```
+# Implement the chat app in python
 
-For other databases consult the [the django DB binding guide]
+## Configuring a Database in Django
 
-[the django DB binding guide]: https://docs.djangoproject.com/en/2.1/topics/install/#database-installation
+To hook up our postgresql database, we need to change the settings in *`<project>/tut/settings.py`*
+
+	!python
+
+	DATABASES = {
+	    'default': {
+	        'ENGINE': 'django.db.backends.postgresql',
+	        'NAME': 'cmedb',
+	        'HOST': '127.0.0.1',
+	        'USER': 'cmedbuser',
+	        'PASSWORD': 'cmedbuserpassword'
+	    }
+	}
+
+For other databases consult the [the django DB binding guide](https://docs.djangoproject.com/en/2.1/topics/install/#database-installation)
 
 ---
 
-# Configuring the django project:
-## Urls
+# Implement the chat app in python
 
-As can be seen from the diagram we need to modify the <project>/tut/urls.py to point all
-<server address>/irc to the irc app's urls.py. This is accomplished using:
+## Configuring URLs in Django
 
-```python
-urlpatterns = [
-    path( 'admin/', admin.site.urls ),
-    path( 'irc/', include( 'irc.urls' ) ),
-]
-```
+As can be seen from the diagram we need to modify the *```<project>/tut/urls.py```* to point all
+```http://address/irc/``` to the irc app's in urls.py. This is accomplished using:
+
+	!python
+
+	urlpatterns = [
+	    path( 'admin/', admin.site.urls ),
+	    path( 'irc/', include( 'irc.urls' ) ),
+	]
 
 We will configure the specific endpoints later
 
-# Configuring the django project:
+---
+
+# Implement the chat app in python
+
 ## Misc
+
 Our sample app will not use HTTPs so we need to disable CSRF cookies
 
-Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from `<project>/tut/settings.py`.
+Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from *`<project>/tut/settings.py`*.
 
 ---
+# Implement the chat app in python
 
-# Defining the models
+## Defining the classes (models)
 
-A model is the way Django uses to represent data as a class, it also acts as an abstraction layer
-for you between the framework and the database.
+Django uses model to represent data as a class. All model objects are automatically stored in a database.
+This effectively lets you completely ignore the DB ( You don't have to learn how to write SQL
+queries!).
 
-This effectively lets you completely ignore the DB ( You dont have to learn how to write SQL
-queries!) .
+Let's begin by the defining the models.
 
-Lets begin by the defining the models.
+	!python
 
-```python
-class Profile( models.Model ):
-    name = models.CharField( max_length=25 )
-    post_count = models.IntegerField( default=0 )
-    email = models.CharField( max_length=100, validators=[EmailValidator()] )
+	class Profile( models.Model ):
+	    name = models.CharField( max_length=25 )
+	    post_count = models.IntegerField( default=0 )
+	    email = models.CharField( max_length=100, validators=[EmailValidator()] )
 
-class Message( models.Model ):
-    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
-    message_text = models.CharField( max_length=10000 )
-    pub_date = models.DateTimeField( 'date published' )
-```
+	class Message( models.Model ):
+	    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
+	    message_text = models.CharField( max_length=10000 )
+	    pub_date = models.DateTimeField( 'date published' )
 
 ---
-# Aplying the model to the database
+# Implement the chat app in python
 
-Turns out django generates all of the SQL for you, infact in order to set up the data base all you
+## Applying the model to the database
+
+Turns out django generates all of the SQL for you, in-fact in order to set up the database all you
 have to run is:
 
 `./manage.py makemigrations`
@@ -500,25 +541,39 @@ have to run is:
 This generates and runs the SQL commands that create and modify the tables based on what you have
 
 ---
-# Behaviour
+# Implement the chat app in python - Behaviour
 
 ## Index
 
 // TODO
 
 ---
-# Behaviour
+# Implement the chat app in python - Behaviour
 
 ## Views
 
 // TODO
 
 ---
-
-# Debugging
+# Implement the chat app in python 
+## Debugging
     // TODO Talk about curl
     // TODO Talk about logging
     // VERY UNSURE TALK ABOUT WS
+
+---
+
+
+# Agenda
+
+Introduction to create a simple REST backend.
+
+<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
+
+- Backend basics
+- Design a simple backend - chat app
+- Implement the chat app in python
+- **Best practices**
 
 ---
 
@@ -526,15 +581,30 @@ This generates and runs the SQL commands that create and modify the tables based
 
 ## The 12-Factor App
 
-1. Codebase: One codebase tracked in revision control, many deploys
-2. Dependencies:  Explicitly declare and isolate dependencies
-3. Config: Store config in the environment
-4. Backing services: Treat backing services as attached resources
-5. Build, release, run: Strictly separate build and run stages
-6. Processes: Execute the app as one or more stateless processes
-7. Port binding: Export services via port binding
-8. Concurrency: Scale out via the process model
-9. Disposability: Maximize robustness with fast startup and graceful shutdown
-10. Dev/prod parity: Keep development, staging, and production as similar as possible
-11. Logs: Treat logs as event streams
-12. Admin processes: Run admin/management tasks as one-off processes
+1. ***Codebase***: One codebase tracked in revision control, many deploys
+2. ***Dependencies***:  Explicitly declare and isolate dependencies
+3. ***Config***: Store config in the environment
+4. ***Backing services***: Treat backing services as attached resources
+5. ***Build, release, run***: Strictly separate build and run stages
+6. ***Processes***: Execute the app as one or more stateless processes
+
+---
+
+# Best practices  
+
+## The 12-Factor App
+
+7. ***Port binding***: Export services via port binding
+8. ***Concurrency***: Scale out via the process model
+9. ***Disposability***: Maximize robustness with fast startup and graceful shutdown
+10. ***Dev/prod parity***: Keep development, staging, and production as similar as possible
+11. ***Logs***: Treat logs as event streams
+12. ***Admin processes***: Run admin/management tasks as one-off processes
+
+---
+
+## Thank You
+
+***Contact***
+
+- Harsha (devkhv129@ece.ubc.ca)
