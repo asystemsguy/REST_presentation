@@ -126,8 +126,8 @@ This tutorial will use Django.
 - Create a user for the DB
 - Create tables
 
-You can also check out the [ Digital Ocean PSQL guide ]
-[ Digital Ocean PSQL guide ]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+You can also check out the [Digital Ocean PSQL guide]
+[Digital Ocean PSQL guide]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
 ---
 # Backend basics
 
