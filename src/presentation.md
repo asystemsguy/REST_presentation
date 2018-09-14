@@ -343,6 +343,43 @@ We have 5 functions, how can we represent them in 2 URLs?
   * PUT: Update a profile
 
 ---
+
+# Protocol
+
+What will the HTTP requests contain? JSON ( Its easy to use and ubiquitous )
+Here are some basic protocol rules:
+
+1. Create profiles
+    * Requires model data as a JSON object
+    * Returns a JSON object containing 'profile_id'
+2. Update profile data
+    * Here we only allow the email and name to change
+    * Requires model data as a JSON object
+    * Returns a JSON object containing 'profile_id'
+3. Create messages
+    * Requires model data as a JSON object
+    * Returns a JSON object containing 'message_id'
+4. View a single profile given an id
+    * Returns a JSON object containing profile model fields
+5. View a single message given an id
+    * Returns a JSON object containing message model fields
+6. View all messages
+    * Returns an array of JSON object containing message fields
+
+Any error will result is JSON object containing the following to be returned:
+
+```python
+{
+    "errors" : {
+        "cause1" : "reason1",
+        "cause2" : "reason1",
+        ...
+    }
+}
+```
+
+---
+
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -382,17 +419,17 @@ This will create the following directory structure:
 ## Database
 To hook up our postgresql database, we need to change the settings in `<project>/tut/settings.py`
 
-    !python
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cmedb',
-            'HOST': '127.0.0.1',
-            'USER': 'cmedbuser',
-            'PASSWORD': 'cmedbuserpassword'
-        }
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cmedb',
+        'HOST': '127.0.0.1',
+        'USER': 'cmedbuser',
+        'PASSWORD': 'cmedbuserpassword'
     }
+}
+```
 
 For other databases consult the [the django DB binding guide]
 
@@ -406,12 +443,12 @@ For other databases consult the [the django DB binding guide]
 As can be seen from the diagram we need to modify the <project>/tut/urls.py to point all
 <server address>/irc to the irc app's urls.py. This is accomplished using:
 
-    !python
-
-    urlpatterns = [
-        path( 'admin/', admin.site.urls ),
-        path( 'irc/', include( 'irc.urls' ) ),
-    ]
+```python
+urlpatterns = [
+    path( 'admin/', admin.site.urls ),
+    path( 'irc/', include( 'irc.urls' ) ),
+]
+```
 
 We will configure the specific endpoints later
 
@@ -447,6 +484,31 @@ class Message( models.Model ):
 
 ---
 
+# Aplying the model to the database
+
+Turns out django generates all of the SQL for you, infact in order to set up the data base all you
+have to run is:
+
+`./manage.py makemigrations`
+
+`./manage.py migrate`
+
+This generates and runs the SQL commands that create and modify the tables based on what you have
+
+---
+
+# Behaviour - Index
+
+// TODO
+
+---
+
+# Behaviour - Views
+
+// TODO
+
+---
+
 ## Where and how to store information
 
 When it comes to storage you have several options:
@@ -468,14 +530,6 @@ Once you have chosen your SQL database of choice you will need to configure the 
 backend.
 ## Django: Registering the models and migrating
 
-Turns out django generates all of the SQL for you, infact in order to set up the data base all you
-have to run is:
-
-`./manage.py makemigrations`
-
-`./manage.py migrate`
-
-This generates and runs the SQL commands that create and modify the tables based on what you have
 
 ---
 # Agenda
