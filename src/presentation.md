@@ -77,9 +77,10 @@ Introduction to create a simple REST backend.
 
 - An SQL Database is a collection of persistent tables.
 - SQL language can be used to query a database to get required data.
-- Example of a database table:
-TBD add a table pic
 - Primary key is used to uniquely identify each row.
+- Example of a database:
+<img src="media/sql_tables.png" alt="drawing" style="width:400px;height:200px;"/>
+
 ---
 
 # Backend basics
