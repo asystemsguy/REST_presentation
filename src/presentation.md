@@ -33,7 +33,8 @@ Introduction to create a simple REST backend.
 
 ## How client and server communicate
 
-- Server can be uniquely identified using IP:PORT combination 
+<center><img src="media/ip_port.png" alt="drawing"/></center>
+- Server can be uniquely identified using IP:PORT combination
 - Ex: for an HTTPS server the combination can be 192.168.1.255:8080
 - IP address is a unique number given to a computer
 - PORT is used to identify a particular program running inside that computer
@@ -60,7 +61,23 @@ Introduction to create a simple REST backend.
 - For this course, you can use azure virtual machines to run your backends. 
 
 ---
+# Backend basics
 
+## Getting my application on the **CLOUD**
+So you need to get someone to led you a VM that is publicly accessible, luckily there are many
+providers out there that offer just that!
+
+- Azure
+- AWS
+- Digital Ocean
+- ...
+
+Since the professor has manged to secure the class Azure credits, we will be using Azure.
+
+**Important:** If you want to work on backend I guarantee that one of those 3 names will be on
+               the job requierments
+
+---
 # Backend basics
 
 ## Azure - Demo
@@ -73,15 +90,42 @@ Introduction to create a simple REST backend.
 
 # Backend basics
 
+# Backend frameworks
+There are many convienient to use frameworks that we can use to simplify our programs:
+    * Django
+    * Flask
+    * Ruby On Rails
+    * ASP.net
+    * etc...
+
+For the most part most of these frameworks only differ in syntax, language, and design methodology
+( how they expect you to do stuff ). The underlying principles and concepts always carry over!
+
+This tutorial will use Django.
+
+---
+# Backend basics
+
 ## SQL Database
 
 - An SQL Database is a collection of persistent tables.
 - SQL language can be used to query a database to get required data.
-- Example of a database table:
-TBD add a table pic
 - Primary key is used to uniquely identify each row.
+
+<center><img src="media/db_table.png" alt="drawing"/></center>
 ---
 
+# Backend basics
+
+## PostgreSQL - Demo
+
+- Install PSQL on Azure server
+- Create a user for the DB
+- Create tables
+
+You can also check out the [ Digital Ocean PSQL guide ]
+[ Digital Ocean PSQL guide ]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+---
 # Backend basics
 
 ## What is an REST API
@@ -106,7 +150,7 @@ TBD add a table pic
 
 ## URL
 
-Each REST api will have one unique URL 
+Each REST api will have one unique URL
 
 Example URLs to access a backend resource
 
@@ -120,6 +164,7 @@ To pass more than one value to backend
 
 ```http://example.com/update_widget?parameter1=value1&parameter2=value2```
 
+Think of hitting a URL as calling a function.
 ---
 
 # Backend basics
@@ -132,7 +177,6 @@ Below are the functions that can be defined on each server resource and can be e
 - PUT - modify the resource
 - POST - create the resource
 - DELETE - delete the resource
-
 ---
 
 # Backend basics
@@ -175,7 +219,7 @@ Server usually send data back upon a request in HTTP response.
 
 Sample JSON object of response object
 
-	!json 
+	!json
 
 	{
 	    "parameter":"value",
@@ -186,7 +230,6 @@ Sample JSON object of response object
 	 }
 
 ---
-
 # Backend basics
 
 ## Response codes
@@ -241,8 +284,8 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - Backend basics
-- **Design of a backend** 
-- Creating a simple backend 
+- **Design of a backend**
+- Creating a simple backend
 
 ---
 
@@ -348,7 +391,6 @@ Any error will result is JSON object containing the following to be returned:
 
 
 ---
-
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -360,7 +402,6 @@ Introduction to create a simple REST backend.
 - **Creating a simple backend** 
 
 ---
-
 # Creating a django project
 
 If you are going to use Django in your project, I recommend looking at the official Django tutorial
@@ -446,7 +487,6 @@ class Message( models.Model ):
 ```
 
 ---
-
 # Aplying the model to the database
 
 Turns out django generates all of the SQL for you, infact in order to set up the data base all you
@@ -459,106 +499,21 @@ have to run is:
 This generates and runs the SQL commands that create and modify the tables based on what you have
 
 ---
+# Behaviour
 
-# Behaviour - Index
-
-// TODO
-
----
-
-# Behaviour - Views
+## Index
 
 // TODO
 
 ---
+# Behaviour
 
-## Where and how to store information
+## Views
 
-When it comes to storage you have several options:
-
-1. SQL Database
-2. No-SQL Database
-3. Local file based approach
-4. etc...
-
-Generally speaking, a lot of backend frameworks support multiple database backends.
-You might descredit the use of a file based approach ( "in house db" ) and for a lot of data it
-certainly has flaws but think of GIT for a second, it technically has a file based database.
-
-In this tutorial we will be using a built in SQLite databse. However, for your own professional
-development, I highly encourage you set up a dedicated database. A lot of jobs will ask for
-familiarity with one of them!
-
-Once you have chosen your SQL database of choice you will need to configure the bindings to your
-backend.
-## Django: Registering the models and migrating
-
+// TODO
 
 ---
-
-# What should it do? - How to implement functionality?
-
-- **create a new message with message_id**
-
-```POST http://www.messageapp.ca/message?message_id = "value"&message="text"&client_id="id"```
-
-- **edit an existing message with message_id**
-
-```PUT http://www.messageapp.ca/message?message_id = "value"&message="text```
-
----
-# What should it do? - How to implement functionality?
-
-- **see all messages**
-
-```GET http://www.messageapp.ca/message```
-
-- **delete an existing message with message_id**
-
-```DELETE http://www.messageapp.ca/message?message_id = "value"```
-
----
-# Lets implement them in python
-
-<!-- The app we are building is a  very basic IRC application, if you need a quick introduction on IRC,
-its, its a way better and older version of SLACK!
-
-The idea is simple, a basic IRC server with no authentication and a single room.
-Multiple clients can talk to the IRC server, each client can post a message as as retrieve all
-messages that are posted. Messages are sorted on the server based on the time they are received.
-
-In real IRC, there is the concept of rooms ( equivalent of channels in slack ), however for this
-sample program we will only have one default room/channel. -->
-
-
-<!-- ## Frameworks:
-There are many frameworks we can use to create convenience:
-    * Django
-    * Flask
-    * Ruby On Rails
-    * ASP.net
-    * etc...
-
-For the most part most of these frameworks only differ in syntax, language, and design methodology
-( how they expect you to do stuff ). The underlying principles and concepts always carry over!
- -->
-
-There are many python frameworks (like Django,Flask ...) etc that can help in building REST backends
-
-In this course we will be using Django. Thus this tutorial will be both a general backend and a
-mini-django tutorial.
-
-If you are going to use Django in your project, I recommend looking at the official Django tutorial
-[Django Official Tutorial]
-
-// TODO Reason
-
-[Django Official Tutorial] -->
-
-
----
-
-# How to run it?
-
-
-
+# Debugging
+    // TODO Talk about curl
+    // TODO Talk about logging
+    // VERY UNSURE TALK ABOUT WS
