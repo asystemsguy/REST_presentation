@@ -391,10 +391,10 @@ This is important, think of these as function calls!
 We have 5 functions, how can we represent them in 2 URLs?
 
 # Verbs
-* address/irc/profiles/<id>?/
+* address/irc/profiles/\<id\>?/
   * POST: Create a message
   * GET: View a message or all message is id not specified
-* address/irc/chat/<id>?/
+* address/irc/chat/\<id\>?/
   * POST: Ceate a profile
   * GET: Retrieve a profile
   * PUT: Update a profile
@@ -433,8 +433,52 @@ If you are going to use Django in your project, I recommend looking at the offic
 
 This will create the following directory structure:
 
-<center><img src="media/dir-structure.png" alt="drawing"/></center>
+<center><img src="media/dir_structure.png" alt="drawing"/></center>
 
+# Configuring the django project:
+##Database
+To hook up our postgresql database, we need to change the settings in `<project>/tut/settings.py`
+
+    !Python
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cmedb',
+            'HOST': '127.0.0.1',
+            'USER': 'cmedbuser',
+            'PASSWORD': 'cmedbuserpassword'
+        }
+    }
+
+For other databases consult the [the django DB binding guide]
+
+[the django DB binding guide]: https://docs.djangoproject.com/en/2.1/topics/install/#database-installation
+
+---
+
+# Configuring the django project:
+##Urls
+
+As can be seen from the diagram we need to modify the <project>/tut/urls.py to point all
+<server address>/irc to the irc app's urls.py. This is accomplished using:
+
+    !Python
+
+    urlpatterns = [
+        path( 'admin/', admin.site.urls ),
+        path( 'irc/', include( 'irc.urls' ) ),
+    ]
+
+We will configure the specific endpoints later
+
+# Configuring the django project:
+##Misc
+Our sample app will not use HTTPs so we need to disable CSRF cookies
+
+Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from `<project>/tut/settings.py`.
+
+---
 
 ## Where and how to store information
 
@@ -456,11 +500,6 @@ familiarity with one of them!
 Once you have chosen your SQL database of choice you will need to configure the bindings to your
 backend.
 
-## Django: Using the database
-
-Using [the django DB binding guide] go ahead and set up the databse..
-
-[the django DB binding guide]: https://docs.djangoproject.com/en/2.1/topics/install/#database-installation
 
 ## Basic Models
 
