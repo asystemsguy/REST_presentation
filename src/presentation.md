@@ -34,6 +34,7 @@ Introduction to create a simple REST backend.
 ## How client and server communicate
 
 <center><img src="media/ip_port.png" alt="drawing"/></center>
+
 - Server can be uniquely identified using IP:PORT combination
 - Ex: for an HTTPS server the combination can be 192.168.1.255:8080
 - IP address is a unique number given to a computer
