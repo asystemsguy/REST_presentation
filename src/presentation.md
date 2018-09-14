@@ -11,126 +11,104 @@ Introduction to create a simple REST backend.
 
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
-- **What is REST and why to use it?**
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- What are alternate tools to build backend?
+- **Backend basics**
+- Design of a backend 
+- Creating a simple backend 
+---
+
+# Backend basics
+
+## what is a backend?
+
+- Backend a program that receives requests from clients and responds with appropriate data
+- Ex: your Facebook app has to talk to a Facebook backend to get all the data required for its working.
+
+## What is a server?
+
+- Server is a computer that runs your backend.
+- This server can be located any where in the world and your client connects using a network.
+
+---
+# Backend basics
+
+## How client and server communicate
+
+- Server can be uniquely identified using IP:PORT combination 
+- Ex: for an HTTPS server the combination can be 192.168.1.255:8080
+- IP address is a unique number given to a computer
+- PORT is used to identify a particular program running inside that computer
+- DNS name is an English name for IP address and can be used in the place of IP to connect to server.
+
+---
+# Backend basics
+
+## How client and server communicate
+
+- A network protocol is set of rules two computers use to talk between each other.
+- HTTP is most common protocol used by all systems in web.
+- HTTP clients (ex: browser) can make requests to HTTP backends and can get responses back.
+- In this tutorial, we will be creating a HTTP backend.
+
+---
+# Backend basics
+
+## What is cloud and what is a VM
+
+- In cloud computing, you will rent a server from a cloud provider and pay only for what you use.
+- To be cost effective cloud provider will virtually share a physical machine between different clients.
+- The part of machine each client gets is called a virtual machine.
+- For this course, you can use azure virtual machines to run your backends. 
 
 ---
 
-# What is REST
+# Backend basics
 
-## REpresentational State Transfer
+## Azure - Demo
 
-An **architectural style** for systems **to communicate on web**.
-
----
-# What is REST
-
-## Main Characteristics of an REST architectural style
-
----
-# What is REST
-
-# Main Characteristics of an REST architectural style
-
-## Uniform Interface
-
-for accessing server resources
-
-- Identification of resources (URL).
-- Manipulation of resources (use CRUD commands to manipulate).
-- Self-descriptive messages (about Errors or Warnings or Success).
+- Create a virtual machine
+- Login to virtual machine from local desktop.
+- Transferring and running a program in virtual machine
 
 ---
 
-# What is REST
+# Backend basics
 
-# Main Characteristics of an REST architectural style
+## SQL Database
 
-## Stateless 
+- An SQL Database is a collection of persistent tables.
+- SQL language can be used to query a database to get required data.
+- Example of a database table:
+TBD add a table pic
+- Primary key is used to uniquely identify each row.
+---
 
-- Each request must contain all of the information necessary to understand the request.
-- *Advantages*: Reliability is improved because it eases the task of recovering from partial failures of server.
-- *Disadvantage*: It may decrease network performance (due to large packet sizes).
+# Backend basics
+
+## What is an REST API
+
+- API is an interface used to access an resource in the server.
+- You can think of a resource as an object in Java. 
+- API is independent of any programming language, and helps clients and servers written in any programming language to communicate.
 
 ---
 
-# What is REST
+# Backend basics
 
-# Main Characteristics of an REST architectural style
-
-## Cacheable
-
-- Responses have to be capable of being labeled as cacheable or non-cacheable. 
-- By labeling as cacheable, client cache is given the right to reuse that response data for later equivalent request.
-- *Advantages*: eliminates some interactions, improves efficiency, scalability, and user-perceived performance.
-- *Disadvantage*: decrease reliability if stale data within the cache differs significantly from the data that would have been obtained had the request been sent directly to the server.
----
-
-# What is REST
-
-# Main Characteristics of an REST architectural style
-
-## Pull-based interaction style
-
-- Only emitting a notification upon receipt of a request
-- Although this is less efficient when viewed as a single client wishing to monitor a single resource, the scale of the Web makes an unregulated push model infeasible
-
----
-
-# Why to use REST ? Advantages
+## Advantages of REST API
 
 - Code one API and build as many types of clients (web, mobile web, phone, tablet) you want (due to uniform Interface of REST)
-- Scalable (as you cache and servers only have to respond to requests)
+- Scalable (as you can cache server responses)
 - Reliable (as it is stateless, don't have to worry about server failures)
 
 ---
-# Agenda
 
-Introduction to create a simple REST back-end.
+# Backend basics
 
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
+## URL
 
-- What is a REST application and why to use it?
-- **How an REST app works?**
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- What are alternate tools to build back-ends?
+Each REST api will have one unique URL 
 
----
-
-# How an REST app works? - HTTP protocol
-
-- REST is usually implemented over HTTP protocol
-- Having said that REST itself is independent of any particular network protocol
-
----
-
-# How an REST app works?
-
-- URLs to represent objects
-- HTTP Verbs
-- Data format of HTTP response
-- Response codes
-- Cache control
-
----
-
-# How an REST app works?
-
-## URLs to represent resources
-
-sample URL to access a backend resource
+Example URLs to access a backend resource
 
 ```http://example.com/resource```
 
@@ -144,9 +122,11 @@ To pass more than one value to backend
 
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## HTTP Verbs
+
+Below are the functions that can be defined on each server resource and can be executed through a HTTP request
 
 - GET - to read the resource
 - PUT - modify the resource
@@ -155,7 +135,7 @@ To pass more than one value to backend
 
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## Example of usage of HTTP verbs
 
@@ -172,7 +152,7 @@ To pass more than one value to backend
   	```GET http://example.com/resources/resourceid```
 
 ---
-# How an REST app works?
+# Backend basics
 
 ## Example of usage of HTTP verbs
 
@@ -187,9 +167,11 @@ To pass more than one value to backend
 
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## Data format of HTTP response - JSON
+
+Server usually send data back upon a request in HTTP response.
 
 Sample JSON object of response object
 
@@ -205,9 +187,13 @@ Sample JSON object of response object
 
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## Response codes
+
+When server detects a error, it will send some standard error codes to client.
+
+These error codes have to be used as they defined in the standard
 
 Here's a list of the most important status codes:
 
@@ -218,7 +204,7 @@ Here's a list of the most important status codes:
 * 3xx = Redirect
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## Response codes
 
@@ -232,9 +218,12 @@ Here's a list of the most important status codes:
 
 ---
 
-# How an REST app works?
+# Backend basics
 
 ## Cache control
+
+- The network between client and server can have a cache which will store most recent responses for each request.
+- Ex: each web browser gets a cache
 
 In HTTP header, an REST server can specify weather to store the response in the cache and for how long
 
@@ -242,8 +231,8 @@ In HTTP header, an REST server can specify weather to store the response in the 
 Cache-Control: no-cache
 Cache-Control: max-age=<seconds>
 ```
-
 ---
+
 
 # Agenda
 
@@ -251,15 +240,9 @@ Introduction to create a simple REST backend.
 
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
-- What is a REST application and why to use it?
-- How an REST app works?
-- **Lets build a simple application - Chat app**
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- What are alternate tools to build backend?
+- Backend basics
+- **Design of a backend** 
+- Creating a simple backend 
 
 ---
 
@@ -273,22 +256,7 @@ Requirements for our chat app
 - client can ***delete a message*** using its message_id
 
 ---
-# Agenda
 
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- **What should it remember? - How to store the state?**
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- What are alternate tools to build backend?
----
 # What should it remember? - State
 
 For our chat application there are 2 things we need to store:
@@ -368,15 +336,16 @@ Here are some basic protocol rules:
 
 Any error will result is JSON object containing the following to be returned:
 
-```python
-{
-    "errors" : {
-        "cause1" : "reason1",
-        "cause2" : "reason1",
-        ...
-    }
-}
-```
+	!python
+	
+	{
+	    "errors" : {
+	        "cause1" : "reason1",
+	        "cause2" : "reason1",
+	        ...
+	    }
+	}
+
 
 ---
 
@@ -386,15 +355,9 @@ Introduction to create a simple REST backend.
 
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- **Lets implement them in python**
-- How to run it? 
-- What are alternate tools to build backend?
+- Backend basics
+- Design of a backend
+- **Creating a simple backend** 
 
 ---
 
@@ -532,23 +495,7 @@ backend.
 
 
 ---
-# Agenda
 
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- **What should it do? - How to implement functionality?**
-- Final application
-- How to run it? 
-- What are alternate tools to build backend?
-
----
 # What should it do? - How to implement functionality?
 
 - **create a new message with message_id**
@@ -610,42 +557,8 @@ If you are going to use Django in your project, I recommend looking at the offic
 
 
 ---
-# Agenda
 
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- **How to run it? **
-- What are alternate tools to build backend?
-
----
-# How to run it? - locally
+# How to run it?
 
 
 
----
-# Agenda
-
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- Final application
-- How to run it? 
-- **What are alternate tools to build backend?**
----
-# What are alternate tools to build backend?
