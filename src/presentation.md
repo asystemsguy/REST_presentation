@@ -317,6 +317,7 @@ Introduction to create a simple REST backend.
 - See all messages
 - Delete an existing message given its message_id
 <!-- =======
+
 Many design patterns e.g. MVC ( which Django psudo uses ) seperate state and functionality.
 
 Here, state referes to the data stored by the site/backend. In our example this may include things
@@ -347,51 +348,98 @@ Introduction to create a simple REST backend.
 ---
 # What should it remember? - State
 
-Lets define an JSON object for our message
-
-	!json 
-
-	{
-	    "id":"message id",
-	    "message":"text",
-	    "client": {
-	        "id":"client id",
-	    }
-	 }
-
----
-# What should it remember? - State
-
-Lets give an URL for our message 
-
-```http://www.messageapp.ca/message```
-
-if we want to send a message id to this URL
-
-```http://www.messageapp.ca/message?message_id = "value"```
-
----
-
-# What should it remember? - How to store the state?
-
-## Where and how to store this information
-
 For our chat application there are 2 things we need to store:
+
 1. Messages
-⋅⋅* Text
-..* Owner
-..* publish date
+⋅⋅* Text ( Max 500 chars )
+..* Owner ( Must exist )
+..* publish date ( Must follow YYYY-MM-DD HH:MM )
 2. Profile/User data
-..* Name
-..* Email
-..* Post count
+..* Name ( Max 50 chars )
+..* Email ( Must follow regex `[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+ )
+..* Post count ( Integer
+
+There is much more we can add to these, but for now lets start off with this nice simple base
 
 Bellow is a diagram that should help visualize the data:
 
 <center><img src="media/model_class_diagram.png" alt="drawing"/></center>
 
-## Where and how to store this information
+---
+
+# Functionality
+
+Here are the tasks we are going to allow our server to perform:
+
+1. Create profiles
+2. Update profile data
+..* Here we only allow the email and name to change
+3. Create messages
+4. View a single profile given an id
+5. View a single message given an id
+6. View all messages given an id
+
+---
+
+# Endpionts/URLs
+
+This is important, think of these as function calls!
+
+* address/irc/profiles/<id>?/
+* address/irc/chat/<id>?/
+
+We have 5 functions, how can we represent them in 2 URLs?
+
+# Verbs
+* address/irc/profiles/<id>?/
+..* POST: Create a message
+..* GET: View a message or all message is id not specified
+* address/irc/chat/<id>?/
+..* POST: Ceate a profile
+..* GET: Retrieve a profile
+..* PUT: Update a profile
+
+---
+# Agenda
+
+Introduction to create a simple REST backend.
+
+<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
+
+- What is a REST application and why to use it?
+- How an REST app works?
+- Lets build a simple application - Chat app
+- Two main parts of our app - State and Functionality
+- What should it remember? - How to store the state?
+- What should it do? - How to implement functionality?
+- **Lets implement them in python**
+- How to run it? 
+- What are alternate tools to build backend?
+
+---
+
+# Creating a django project
+
+If you are going to use Django in your project, I recommend looking at the official Django tutorial
+[Django Official Tutorial]
+
+[Django Official Tutorial]: https://docs.djangoproject.com/en/2.1/intro
+
+
+1. Create a folder: `mkdir -p ~/cpen321/backend`
+2. Create a Django project: `django-admin startproject <project name>`
+3. `cd` into the project dirrectory `cd ~/cpen321/backend`
+4. Create an app withing Django: `./manage.py startapp irc`
+
+This will create the following directory structure:
+
+<center><img src="media/dir-structure.png" alt="drawing"/></center>
+
+
+## Where and how to store information
+
 When it comes to storage you have several options:
+
 1. SQL Database
 2. No-SQL Database
 3. Local file based approach
@@ -414,21 +462,40 @@ Using [the django DB binding guide] go ahead and set up the databse..
 
 [the django DB binding guide]: https://docs.djangoproject.com/en/2.1/topics/install/#database-installation
 
-## Models
+## Basic Models
 
-Lets begin by the defining the model // TODO FINISH
+A model is the way Django uses to represent data as a class, it also acts as an abstraction layer
+for you between the framework and the database.
 
+This effectively lets you completely ignore the DB ( You dont have to learn how to write SQL
+queries.
+
+Lets begin by the defining the models.
 
 ```
 class Profile( models.Model ):
     name = models.CharField( max_length=25 )
     post_count = models.IntegerField( default=0 )
+    email = models.CharField( max_length=1000 )
 
 class Message( models.Model ):
-    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
+    owner = models.ForeignKey( Profile, on_delete=models.CASCADE )
     message_text = models.CharField( max_length=10000 )
     pub_date = models.DateTimeField( 'date published' )
 ```
+
+_Note: We will build on these models as the presentaion progesses!_
+
+## Django: Registering the models and migrating
+
+Turns out django generates all of the SQL for you, infact in order to set up the data base all you
+have to run is:
+
+`./manage.py makemigrations`
+
+`./manage.py migrate`
+
+This generates and runs the SQL commands that create and modify the tables based on what you have
 
 ---
 # Agenda
@@ -468,23 +535,6 @@ Introduction to create a simple REST backend.
 - **delete an existing message with message_id**
 
 ```DELETE http://www.messageapp.ca/message?message_id = "value"```
-
----
-# Agenda
-
-Introduction to create a simple REST backend.
-
-<img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
-
-- What is a REST application and why to use it?
-- How an REST app works?
-- Lets build a simple application - Chat app
-- Two main parts of our app - State and Functionality
-- What should it remember? - How to store the state?
-- What should it do? - How to implement functionality?
-- **Lets implement them in python**
-- How to run it? 
-- What are alternate tools to build backend?
 
 ---
 # Lets implement them in python
