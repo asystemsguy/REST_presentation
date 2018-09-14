@@ -12,13 +12,13 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - **Backend basics**
-- Design of a backend 
-- Creating a simple backend 
+- Design a simple backend - chat app
+- Implement the chat app in python
 ---
 
 # Backend basics
 
-## what is a backend?
+## What is a backend?
 
 - Backend a program that receives requests from clients and responds with appropriate data
 - Ex: your Facebook app has to talk to a Facebook backend to get all the data required for its working.
@@ -234,7 +234,6 @@ Cache-Control: max-age=<seconds>
 ```
 ---
 
-
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -242,8 +241,8 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - Backend basics
-- **Design of a backend** 
-- Creating a simple backend 
+- **Design a simple backend - chat app**
+- Implement the simple backend in python
 
 ---
 
@@ -357,8 +356,8 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - Backend basics
-- Design of a backend
-- **Creating a simple backend** 
+- Design a simple backend - chat app
+- **Implement the chat app in python**
 
 ---
 
