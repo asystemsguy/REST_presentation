@@ -34,6 +34,7 @@ Introduction to create a simple REST backend.
 ## How client and server communicate
 
 <center><img src="media/ip_port.png" alt="drawing"/></center>
+
 - Server can be uniquely identified using IP:PORT combination
 - Ex: for an HTTPS server the combination can be 192.168.1.255:8080
 - IP address is a unique number given to a computer
@@ -513,7 +514,27 @@ This generates and runs the SQL commands that create and modify the tables based
 // TODO
 
 ---
+
 # Debugging
     // TODO Talk about curl
     // TODO Talk about logging
     // VERY UNSURE TALK ABOUT WS
+
+---
+
+# Best practices  
+
+## The 12-Factor App
+
+1. Codebase: One codebase tracked in revision control, many deploys
+2. Dependencies:  Explicitly declare and isolate dependencies
+3. Config: Store config in the environment
+4. Backing services: Treat backing services as attached resources
+5. Build, release, run: Strictly separate build and run stages
+6. Processes: Execute the app as one or more stateless processes
+7. Port binding: Export services via port binding
+8. Concurrency: Scale out via the process model
+9. Disposability: Maximize robustness with fast startup and graceful shutdown
+10. Dev/prod parity: Keep development, staging, and production as similar as possible
+11. Logs: Treat logs as event streams
+12. Admin processes: Run admin/management tasks as one-off processes
