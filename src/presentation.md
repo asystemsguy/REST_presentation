@@ -382,7 +382,7 @@ This will create the following directory structure:
 ## Database
 To hook up our postgresql database, we need to change the settings in `<project>/tut/settings.py`
 
-    !Python
+    !python
 
     DATABASES = {
         'default': {
@@ -406,7 +406,7 @@ For other databases consult the [the django DB binding guide]
 As can be seen from the diagram we need to modify the <project>/tut/urls.py to point all
 <server address>/irc to the irc app's urls.py. This is accomplished using:
 
-    !Python
+    !python
 
     urlpatterns = [
         path( 'admin/', admin.site.urls ),
@@ -420,6 +420,30 @@ We will configure the specific endpoints later
 Our sample app will not use HTTPs so we need to disable CSRF cookies
 
 Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from `<project>/tut/settings.py`.
+
+---
+
+# Defining the models
+
+A model is the way Django uses to represent data as a class, it also acts as an abstraction layer
+for you between the framework and the database.
+
+This effectively lets you completely ignore the DB ( You dont have to learn how to write SQL
+queries!) .
+
+Lets begin by the defining the models.
+
+```python
+class Profile( models.Model ):
+    name = models.CharField( max_length=25 )
+    post_count = models.IntegerField( default=0 )
+    email = models.CharField( max_length=100, validators=[EmailValidator()] )
+
+class Message( models.Model ):
+    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
+    message_text = models.CharField( max_length=10000 )
+    pub_date = models.DateTimeField( 'date published' )
+```
 
 ---
 
@@ -442,32 +466,6 @@ familiarity with one of them!
 
 Once you have chosen your SQL database of choice you will need to configure the bindings to your
 backend.
-
-
-## Basic Models
-
-A model is the way Django uses to represent data as a class, it also acts as an abstraction layer
-for you between the framework and the database.
-
-This effectively lets you completely ignore the DB ( You dont have to learn how to write SQL
-queries.
-
-Lets begin by the defining the models.
-
-```
-class Profile( models.Model ):
-    name = models.CharField( max_length=25 )
-    post_count = models.IntegerField( default=0 )
-    email = models.CharField( max_length=1000 )
-
-class Message( models.Model ):
-    owner = models.ForeignKey( Profile, on_delete=models.CASCADE )
-    message_text = models.CharField( max_length=10000 )
-    pub_date = models.DateTimeField( 'date published' )
-```
-
-_Note: We will build on these models as the presentaion progesses!_
-
 ## Django: Registering the models and migrating
 
 Turns out django generates all of the SQL for you, infact in order to set up the data base all you
