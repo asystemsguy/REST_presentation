@@ -65,6 +65,7 @@ Introduction to create a simple REST backend.
 # Backend basics
 
 ## Getting my application on the **CLOUD**
+
 So you need to get someone to led you a VM that is publicly accessible, luckily there are many
 providers out there that offer just that!
 
@@ -167,6 +168,7 @@ To pass more than one value to backend
 ```http://example.com/update_widget?parameter1=value1&parameter2=value2```
 
 Think of hitting a URL as calling a function.
+
 ---
 
 # Backend basics
@@ -285,8 +287,6 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - Backend basics
-- **Design of a backend**
-- Creating a simple backend
 - **Design a simple backend - chat app**
 - Implement the simple backend in python
 
