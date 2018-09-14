@@ -373,7 +373,7 @@ Here are the tasks we are going to allow our server to perform:
 
 1. Create profiles
 2. Update profile data
-..* Here we only allow the email and name to change
+  * Here we only allow the email and name to change
 3. Create messages
 4. View a single profile given an id
 5. View a single message given an id
@@ -392,12 +392,12 @@ We have 5 functions, how can we represent them in 2 URLs?
 
 # Verbs
 * address/irc/profiles/<id>?/
-..* POST: Create a message
-..* GET: View a message or all message is id not specified
+  * POST: Create a message
+  * GET: View a message or all message is id not specified
 * address/irc/chat/<id>?/
-..* POST: Ceate a profile
-..* GET: Retrieve a profile
-..* PUT: Update a profile
+  * POST: Ceate a profile
+  * GET: Retrieve a profile
+  * PUT: Update a profile
 
 ---
 # Agenda
