@@ -12,13 +12,13 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - **Backend basics**
-- Design of a backend 
-- Creating a simple backend 
+- Design a simple backend - chat app
+- Implement the chat app in python
 ---
 
 # Backend basics
 
-## what is a backend?
+## What is a backend?
 
 - Backend a program that receives requests from clients and responds with appropriate data
 - Ex: your Facebook app has to talk to a Facebook backend to get all the data required for its working.
@@ -111,8 +111,9 @@ This tutorial will use Django.
 - An SQL Database is a collection of persistent tables.
 - SQL language can be used to query a database to get required data.
 - Primary key is used to uniquely identify each row.
+- Example of a database:
+<img src="media/sql_tables.png" alt="drawing" style="width:400px;height:200px;"/>
 
-<center><img src="media/db_table.png" alt="drawing"/></center>
 ---
 
 # Backend basics
@@ -276,7 +277,6 @@ Cache-Control: max-age=<seconds>
 ```
 ---
 
-
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -286,9 +286,10 @@ Introduction to create a simple REST backend.
 - Backend basics
 - **Design of a backend**
 - Creating a simple backend
+- **Design a simple backend - chat app**
+- Implement the simple backend in python
 
 ---
-
 # Lets build a simple application - Chat app
 
 Requirements for our chat app
@@ -299,7 +300,6 @@ Requirements for our chat app
 - client can ***delete a message*** using its message_id
 
 ---
-
 # What should it remember? - State
 
 For our chat application there are 2 things we need to store:
@@ -398,8 +398,8 @@ Introduction to create a simple REST backend.
 <img src="media/backend.jpg" alt="drawing" style="float:right;width:250px;height:160px;"/>
 
 - Backend basics
-- Design of a backend
-- **Creating a simple backend** 
+- Design a simple backend - chat app
+- **Implement the chat app in python**
 
 ---
 # Creating a django project
