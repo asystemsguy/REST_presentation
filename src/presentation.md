@@ -608,3 +608,4 @@ Introduction to create a simple REST backend.
 ***Contact***
 
 - Harsha (devkhv129@ece.ubc.ca)
+- Zeyad Tamimi ()
