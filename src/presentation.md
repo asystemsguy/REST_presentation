@@ -15,8 +15,8 @@ Introduction to create a simple REST backend.
 - Design a simple backend - chat app
 - Implement the chat app in python
 - Best practices
----
 
+---
 # Backend basics
 
 ## What is a backend?
@@ -30,7 +30,6 @@ Introduction to create a simple REST backend.
 - This server can be located any where in the world and your client connects using a network.
 
 ---
-
 # Backend basics
 
 ## What is cloud and what is a VM
@@ -38,7 +37,6 @@ Introduction to create a simple REST backend.
 - In cloud computing, you will rent a server from a cloud provider and pay only for what you use.
 - To be cost effective cloud provider will virtually share a physical machine between different clients.
 - The part of machine each client gets is called a virtual machine.
-- For this course, you can use azure virtual machines to run your backends. 
 
 ---
 # Backend basics
@@ -65,8 +63,8 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 - Create a virtual machine
 - Login to virtual machine from local desktop.
 - Transferring and running a program in virtual machine
----
 
+---
 # Backend basics
 
 ## SQL Database
@@ -78,7 +76,6 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 <img src="media/sql_tables.png" alt="drawing" style="width:400px;height:200px;"/>
 
 ---
-
 # Backend basics
 
 ## PostgreSQL - Demo
@@ -88,10 +85,10 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 - Create tables
 
 You can also check out the [Digital Ocean PSQL guide]
-[Digital Ocean PSQL guide](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+
+[Digital Ocean PSQL guide]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
 
 ---
-
 # Backend basics
 
 ## How client and server communicate - Network
@@ -115,13 +112,12 @@ You can also check out the [Digital Ocean PSQL guide]
 - In this tutorial, we will be creating a HTTP backend.
 
 ---
-
 # Backend basics
 
 ## What is an REST API
 
 - API is an interface used to access an resource in the server.
-- You can think of a resource as an object in Java. 
+- You can think of a resource as an object in Java.
 - API is independent of any programming language, and helps clients and servers written in any programming language to communicate.
 
 ---
@@ -135,7 +131,6 @@ You can also check out the [Digital Ocean PSQL guide]
 - Reliable (as it is stateless, don't have to worry about server failures)
 
 ---
-
 # Backend basics
 
 ## URL
@@ -157,7 +152,6 @@ To pass more than one value to backend
 Think of hitting a URL as calling a function.
 
 ---
-
 # Backend basics
 
 ## HTTP Verbs
@@ -204,9 +198,10 @@ Below are the functions that can be defined on each server resource and can be e
 
 # Backend basics
 
-## Data format of HTTP response - JSON
+## Data format of HTTP response
 
-Server usually send data back upon a request in HTTP response.
+Server usually send data back upon a request in HTTP response, this can be any text format you like.
+One popular format ( used by this tutorial ) is JSON.
 
 Sample JSON object of response object
 
@@ -236,8 +231,8 @@ Here's a list of the most important status codes:
 	- 201 - Created
 	- 202 - Accepted (often used for delete requests)
 * 3xx = Redirect
----
 
+---
 # Backend basics
 
 ## Response codes
@@ -251,7 +246,6 @@ Here's a list of the most important status codes:
 * 5xx = Server error
 
 ---
-
 # Backend basics
 
 ## Cache control
@@ -265,8 +259,8 @@ In HTTP header, an REST server can specify weather to store the response in the 
 Cache-Control: no-cache
 Cache-Control: max-age=<seconds>
 ```
----
 
+---
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -285,6 +279,8 @@ Introduction to create a simple REST backend.
 
 Requirements for our chat app
 
+- client can ***create a profile*** with a profile_id
+- client can ***modify a profile*** using its profile_id
 - client can ***send messages*** with message_id to server
 - client can ***see all messages*** and message_ids
 - client can ***modify an existing message*** using its message_id
@@ -303,52 +299,37 @@ For our chat application there are 2 things we need to store:
 There is much more we can add to these, but for now lets start off with this nice simple base
 
 ---
-
 # Design a simple backend - chat app
 
 ## Functionality
 
 Here are the functions our server will perform:
 
-**Profiles**
+Think of it in terms of a class diagram where each class is responsible for either User or Message
+related operations.
 
-	1. Create profiles
-	2. Update profile data
-		* Here we only allow the email and name to change
-	3. View a single profile given an id
-
-**Messages**
-
-	1. Create messages
-	2. View a single message given an id
-	3. View all messages given an id
+<center><img src="media/detailed_app_arch.png" alt="drawing"/></center>
 
 ---
-
-# Defining URLs for Endpoints
+# Connecting enpoints and functions
 
 Lets assign URL for each class
-
-* ```http://address/irc/profiles/```
-* ```http://address/irc/messages/```
-
 HTTP Verbs are used to represent functions (APIs), Let's assign them to our 5 functions 
 
-* ```http://address/irc/profiles/\<id\>?/```
+* ```http://address/irc/profiles/```
 	* POST: Create a profile
 	* GET : Retrieve a profile
 	* PUT : Update a profile
-* ```http://address/irc/messages/\<id\>?/```
+* ```http://address/irc/messages/```
 	* POST: Create a message
 	* GET : View a message or all message if id not specified
 
 ---
-
 # Design a simple backend - chat app
 
-## Protocol 
+## Protocol
 
-How to pass data to APIs and get return values back? 
+How to pass data to APIs and get return values back?
 ***JSON*** ( Its easy to use and ubiquitous )
 
 Here are some basic protocol rules:
@@ -361,9 +342,7 @@ Here are some basic protocol rules:
     * Requires model data as a JSON object
     * Returns a JSON object containing 'profile_id'
 
-
 ---
-
 # Design a simple backend - chat app
 
 ## Protocol
@@ -379,7 +358,6 @@ Here are some basic protocol rules:
     * Returns an array of JSON object containing message fields
 
 ---
-
 # Design a simple backend - chat app
 
 ## Errors
@@ -397,7 +375,6 @@ Any error will result is JSON object containing the following to be returned:
 	}
 
 ---
-
 # Agenda
 
 Introduction to create a simple REST backend.
@@ -429,14 +406,13 @@ For the most part most of these frameworks only differ in syntax, language, and 
 This tutorial will use ***Django***.
 
 ---
-
 # Implement the chat app in python
 
 ## Creating a Django project
 
 If you are going to use Django in your project, I recommend looking at the official Django tutorial
 
-[Django Official Tutorial](https://docs.djangoproject.com/en/2.1/intro)
+[Official Django tutorial]: https://docs.djangoproject.com/en/2.1/intro
 
 1. Create a folder: `mkdir -p ~/cpen321/backend`
 2. Create a Django project: `django-admin startproject <project name>`
@@ -444,7 +420,6 @@ If you are going to use Django in your project, I recommend looking at the offic
 4. Create an app withing Django: `./manage.py startapp irc`
 
 ---
-
 # Implement the chat app in python
 
 ## Creating a Django project
