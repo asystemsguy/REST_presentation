@@ -441,10 +441,10 @@ To hook up our postgresql database, we need to change the settings in *`<project
 	DATABASES = {
 	    'default': {
 	        'ENGINE': 'django.db.backends.postgresql',
-	        'NAME': 'cmedb',
+	        'NAME': 'ircdb',
 	        'HOST': '127.0.0.1',
-	        'USER': 'cmedbuser',
-	        'PASSWORD': 'cmedbuserpassword'
+	        'USER': 'ircdbuser',
+	        'PASSWORD': 'ircdbuserpassword'
 	    }
 	}
 
