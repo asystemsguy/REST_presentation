@@ -46,8 +46,8 @@ Introduction to create a simple REST backend.
 So you need to get someone to led you a VM that is publicly accessible, luckily there are many
 providers out there that offer just that!
 
-- Azure
-- AWS
+- Microsoft Azure
+- Amazon AWS
 - Digital Ocean
 
 Since the professor has manged to secure the class Azure credits, we will be using Azure.
@@ -80,11 +80,11 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 
 ## PostgreSQL - Demo
 
-- Install PostgreSQL on Azure VM
+- Create a PostgreSQL database on Azure
 - Create a user for the DB
 - Create tables
 
-You can also check out the [Digital Ocean PSQL guide]
+You can also check out the [Digital Ocean PSQL guide] if you want to install the database local to your server
 
 [Digital Ocean PSQL guide]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
 
@@ -418,6 +418,8 @@ If you are going to use Django in your project, I recommend looking at the offic
 2. Create a Django project: `django-admin startproject <project name>`
 3. `cd` into the project directory `cd ~/cpen321/backend`
 4. Create an app withing Django: `./manage.py startapp irc`
+5. `sudo apt install pip3 python3-psycopg2`
+6. `sudo pip install django`
 
 ---
 # Implement the chat app in python
@@ -445,99 +447,16 @@ To hook up our postgresql database, we need to change the settings in *`<project
 	        'HOST': '127.0.0.1',
 	        'USER': 'ircdbuser',
 	        'PASSWORD': 'ircdbuserpassword'
+	        # Only add if using PSQL on azure
+	        'OPTIONS': {
+	            'sslmode' : 'require'
+	        }
 	    }
 	}
 
 For other databases consult the [the django DB binding guide](https://docs.djangoproject.com/en/2.1/topics/install/#database-installation)
 
 ---
-
-# Implement the chat app in python
-
-## Configuring URLs in Django
-
-As can be seen from the diagram we need to modify the *```<project>/tut/urls.py```* to point all
-```http://address/irc/``` to the irc app's in urls.py. This is accomplished using:
-
-	!python
-
-	urlpatterns = [
-	    path( 'admin/', admin.site.urls ),
-	    path( 'irc/', include( 'irc.urls' ) ),
-	]
-
-We will configure the specific endpoints later
-
----
-
-# Implement the chat app in python
-
-## Misc
-
-Our sample app will not use HTTPs so we need to disable CSRF cookies
-
-Remove the line `'django.middleware.csrf.CsrfViewMiddleware'` from *`<project>/tut/settings.py`*.
-
----
-# Implement the chat app in python
-
-## Defining the classes (models)
-
-Django uses model to represent data as a class. All model objects are automatically stored in a database.
-This effectively lets you completely ignore the DB ( You don't have to learn how to write SQL
-queries!).
-
-Let's begin by the defining the models.
-
-	!python
-
-	class Profile( models.Model ):
-	    name = models.CharField( max_length=25 )
-	    post_count = models.IntegerField( default=0 )
-	    email = models.CharField( max_length=100, validators=[EmailValidator()] )
-
-	class Message( models.Model ):
-	    profile = models.ForeignKey( Profile, on_delete=models.CASCADE )
-	    message_text = models.CharField( max_length=10000 )
-	    pub_date = models.DateTimeField( 'date published' )
-
----
-# Implement the chat app in python
-
-## Applying the model to the database
-
-Turns out django generates all of the SQL for you, in-fact in order to set up the database all you
-have to run is:
-
-`./manage.py makemigrations`
-
-`./manage.py migrate`
-
-This generates and runs the SQL commands that create and modify the tables based on what you have
-
----
-# Implement the chat app in python - Behaviour
-
-## Index
-
-// TODO
-
----
-# Implement the chat app in python - Behaviour
-
-## Views
-
-// TODO
-
----
-# Implement the chat app in python 
-## Debugging
-    // TODO Talk about curl
-    // TODO Talk about logging
-    // VERY UNSURE TALK ABOUT WS
-
----
-
 
 # Agenda
 
