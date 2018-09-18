@@ -84,9 +84,12 @@ Since the professor has manged to secure the class Azure credits, we will be usi
 - Create a user for the DB
 - Create tables
 
+Here is the official Microsoft guide for setting up a PSQL resource.
+
 You can also check out the [Digital Ocean PSQL guide] if you want to install the database local to your server
 
 [Digital Ocean PSQL guide]: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
+[official Microsoft guide]: https://docs.microsoft.com/en-us/azure/postgresql/quickstart-create-server-database-portal
 
 ---
 # Backend basics
@@ -414,12 +417,13 @@ If you are going to use Django in your project, I recommend looking at the offic
 
 [Official Django tutorial]: https://docs.djangoproject.com/en/2.1/intro
 
-1. Create a folder: `mkdir -p ~/cpen321/backend`
-2. Create a Django project: `django-admin startproject <project name>`
-3. `cd` into the project directory `cd ~/cpen321/backend`
-4. Create an app withing Django: `./manage.py startapp irc`
-5. `sudo apt install pip3 python3-psycopg2`
-6. `sudo pip install django`
+1. `sudo apt install pip3 python3-psycopg2`
+2. `sudo pip install django`
+3. Create a folder: `mkdir -p ~/cpen321/backend`
+4. Create a Django project: `django-admin startproject <project name>`
+5. `cd` into the project directory `cd ~/cpen321/backend`
+6. Create an app withing Django: `./manage.py startapp irc`
+7. Try to run the server with './manage.py runserver`
 
 ---
 # Implement the chat app in python
@@ -431,7 +435,6 @@ After following the steps, you should see the following directory structure:
 <center><img src="media/dir_structure.png" alt="drawing"/></center>
 
 ---
-
 # Implement the chat app in python
 
 ## Configuring a Database in Django
@@ -457,7 +460,55 @@ To hook up our postgresql database, we need to change the settings in *`<project
 For other databases consult the [the django DB binding guide](https://docs.djangoproject.com/en/2.1/topics/install/#database-installation)
 
 ---
+# Implement the chat app in python
 
+## Configuring site wide settings
+
+There are two things you have to worry about here:
+
+    - ALLOWED_HOSTS needs to contain the hostname the django DB is running on, security measure
+    - Remove django.middleware.csrf as you are not going to use HTTPS for this demo. This is under MIDDLEWARE
+
+---
+# Implement the chat app in python
+
+## Configuring the project to route certain URLs to your app
+
+We want http://ip:port/irc/* to route all requests to our app, so we add the following rules:
+
+    - `path('irc/', include( 'irc.urls' )`
+
+This causes URLs that match the rule to be resolves using the app's urls.py urlpatterns.
+
+---
+# Implement the chat app in python
+
+## Configuring your app's endpoints
+
+Now we want to configure our app to rout endpoint hits to method handlers:
+
+
+    !python
+
+    urlpatterns = [
+        re_path(r'^$', views.index, name='index'),
+        re_path(r'^messages/(?:(?P<message_id>[0-9]+)/)?$', views.Messages.as_view(), name='Chat'),
+        re_path(r'^profiles/(?:(?P<profile_id>[0-9]+)/)?$', views.Profiles.as_view(), name='index'),
+    ]
+
+Take a moment to understand the regex expressions, the `.as_view()` is just a way to tell django that a View class is being used.
+More on those later.
+
+---
+# Implement the chat app in python
+
+## Views basics
+
+Go ahead and examine the index function in views.py.
+
+Try to use curl to POST & GET from the index
+
+---
 # Agenda
 
 Introduction to create a simple REST backend.
